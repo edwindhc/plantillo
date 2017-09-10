@@ -1,0 +1,17 @@
+home-top
+home-footer
+category-top
+category-footer
+post-top
+post-post-top
+post-footer
+post-sidebar-top
+post-sidebar-between
+post-sidebar-footer
+upload-top
+upload-footer
+error-top
+edit-profile-top
+edit-profile-bottom
+user-profile-top
+user-profile-bottom

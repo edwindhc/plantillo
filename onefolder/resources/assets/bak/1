@@ -1,0 +1,216 @@
+@extends('layouts.app')
+
+@section('header')
+    <title>{!! trans('codercv.upload') !!}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
+    <style>
+        div.table { display: table;}
+        div.table .file-row { display: table-row; }
+        div.table .file-row > div { display: table-cell;vertical-align: top;border-top: 1px solid #3c3c3c;padding: 8px; }
+        div.image-preview { background: #000; }
+        div.table .file-row:nth-child(odd) { background: #3c3c3c; }
+        div.table .file-row:nth-child(even) { background: #4f4f4f; }
+        #total-progress { opacity: 0; transition: opacity 0.3s linear; }
+        #previews .file-row.dz-success .progress { opacity: 0; transition: opacity 0.3s linear; }
+        #previews .file-row .delete { display: none; }
+        #previews .file-row.dz-success .start, #previews .file-row.dz-success .cancel { display: none; }
+        #previews .file-row.dz-success .delete { display: block; }
+        p.drop-file-here { padding: 20px; border: 1px dashed #CCC; }
+    </style>
+@endsection
+
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-8 center-block upload-form-div">
+            <div class="panel panel-default">
+                <div class="panel-heading">{!! trans('codercv.upload') !!}</div>
+                <div class="panel-body">
+                    <div id="actions" class="row">
+                        <p class="drop-file-here text-center">
+                            <i class="fa fa-upload"></i> {!! trans('codercv.drop_your_file_here') !!}
+                            <span class="btn btn-success fileinput-button">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                <span>{!! trans('codercv.add_files') !!}</span>
+                            </span>
+                        </p>
+                        <div class="col-md-7 text-center">
+                        </div>
+                        <div class="col-md-5">
+                            <span class="fileupload-process">
+                              <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                  <div class="progress-bar prasweogress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                              </div>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="table table-striped" class="files" id="previews">
+                        <div id="template" class="file-row">
+                            <div class="col-xs-12 text-center image-preview">
+                                <span class="preview">
+                                    <img class="img-responsive center-block" data-dz-thumbnail />
+                                </span>
+                            </div>
+                            <div class="col-xs-12">
+                                <strong class="error text-danger" data-dz-errormessage></strong>
+                                <input type="text" name="title" class="form-control" placeholder="{!! trans('codercv.title_your_image') !!}">
+                                <textarea name="description" id="" rows="3" class="form-control" placeholder="{!! trans('codercv.provide_image_description') !!}"></textarea>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="edit-update"></div>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                    <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                                </div>
+                                <button class="btn btn-primary start">
+                                    <i class="glyphicon glyphicon-upload"></i>
+                                    <span>{!! trans('codercv.start') !!}</span>
+                                </button>
+                                <button data-dz-remove class="btn btn-warning cancel">
+                                    <i class="glyphicon glyphicon-ban-circle"></i>
+                                    <span>{!! trans('codercv.cancel') !!}</span>
+                                </button>
+                                <button data-dz-remove class="btn btn-danger delete">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <span>{!! trans('codercv.delete') !!}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 meta-data"></div>
+    </div>
+</div>
+    <div class="modal fade" id="editImage">
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+    			<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    				<h4 class="modal-title">{!! trans('codercv.update_attachments') !!}</h4>
+    			</div>
+    			<div class="modal-body">
+    				<div id="loading"><i class="fa fa-spin fa-spinner"></i> {!! trans('codercv.loading') !!}</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+@endsection
+
+@section('footer')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+    <script type="text/javascript">
+        var baseUrl = "{{ url('/') }}";
+        var token = jQuery('meta[name=csrf-token]').attr('content');
+        var previewNode = document.querySelector("#template");
+        previewNode.id = "";
+        var previewTemplate = previewNode.parentNode.innerHTML;
+        previewNode.parentNode.removeChild(previewNode);
+        var fileList = new Array;
+        var i =0;
+        var myDropzone = new Dropzone(document.body, {
+            url: baseUrl+"/upload/files",
+            params: { _token: token },
+            paramName: "file",
+            acceptedFiles : "image/*",
+            parallelUploads: 1,
+            maxFilesize: {!! ( env('FILE_SIZE', 5120) ) / 1024 !!},
+            previewTemplate: previewTemplate,
+            autoQueue: false,
+            dictFileTooBig: '{!! trans('codercv.dictFileTooBig') !!}',
+            previewsContainer: "#previews",
+            clickable: ".fileinput-button",
+        });
+        myDropzone.on("addedfile", function(file) {
+            if (this.files.length) {
+                var _i, _len;
+                for (_i = 0, _len = this.files.length; _i < _len - 1; _i++) {
+                    if(this.files[_i].name === file.name) {
+                        this.removeFile(file);
+                    }
+                }
+            }
+            file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
+        });
+        myDropzone.on("totaluploadprogress", function(progress) {
+            document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
+        });
+        myDropzone.on("sending", function(file, xhr, formData) {
+            var titleForImage = file.previewElement.querySelector("input").setAttribute("disabled", "disabled");
+            var descForImage = file.previewElement.querySelector("textarea").setAttribute("disabled", "disabled");
+            formData.append('title', titleForImage);
+            formData.append('description', descForImage);
+            document.querySelector("#total-progress").style.opacity = "1";
+            file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+        });
+        myDropzone.on("queuecomplete", function(progress) {
+            document.querySelector("#total-progress").style.opacity = "0";
+        });
+        myDropzone.on("success", function(file, data){
+            var titleForImage = file.previewElement.querySelector("input").style.css;
+            var descForImage = file.previewElement.querySelector("textarea").value;
+
+            var filenameIs = JSON.parse(data).filename;
+            var aa = file.previewElement.querySelector("div.image-preview");
+
+            aa.innerHTML = '<br><a class="btn btn-default btn-block" href="{!! url('/') !!}/files/'+filenameIs+'" target="_blank"><i class="fa fa-eye"></i> {!! trans('codercv.view_image') !!}</a> <a class="btn btn-primary btn-block" data-toggle="modal" href="#editImage" data-image="'+filenameIs+'"><i class="fa fa-pencil-square-o"></i> {!! trans('codercv.update_attachments') !!}</a>';
+
+            if(jQuery('div.meta-data').length == 0 && jQuery('div.'+JSON.parse(data).delete_url).length == 0) {
+                jQuery('.upload-form-div').removeClass('center-block');
+                jQuery('div.meta-data').html('<div class="panel panel-default"><div class="panel-heading">{!! url(trans('codercv.post_settings')) !!}</div><div class="panel-body '+JSON.parse(data).delete_url+' text-center"><div class="input-group"><input type="text" class="form-control" value="{!! url('post/delete') !!}/' + JSON.parse(data).delete_url + '" readonly><span class="btn btn-danger input-group-addon"><i class="fa fa-trash-o"></i> {!! trans('codercv.delete_url') !!}</span></div><p> <a class="btn btn-default btn-block" href="{!! url('post') !!}/'+JSON.parse(data).post_id+'/{!! str_slug($settings->name) !!}"><i class="fa fa-eye"></i> {!! trans('codercv.view_post') !!}</a></p></div></div>');
+
+            } else if(jQuery('div.meta-data').length != 0 && jQuery('div.'+JSON.parse(data).delete_url).length == 0) {
+
+                jQuery('div.meta-data').html('');jQuery('.upload-form-div').removeClass('center-block');
+                jQuery('div.meta-data').html('<div class="panel panel-default"><div class="panel-heading">{!! url(trans('codercv.post_settings')) !!}</div><div class="panel-body '+JSON.parse(data).delete_url+' text-center"><div class="input-group"><input type="text" class="form-control" value="{!! url('post/delete') !!}/' + JSON.parse(data).delete_url + '" readonly><span class="btn btn-danger input-group-addon"><i class="fa fa-trash-o"></i> {!! trans('codercv.delete_url') !!}</span></div><p> <a class="btn btn-default btn-block" href="{!! url('post') !!}/'+JSON.parse(data).post_id+'/{!! str_slug($settings->name) !!}"><i class="fa fa-eye"></i> {!! trans('codercv.view_post') !!}</a></p></div></div>');
+
+            }
+
+            var ab = file.previewElement.querySelector("[data-dz-thumbnail]");
+            ab.setAttribute("alt", filenameIs);
+
+            fileList[i] = {
+                "origianlFileName" : filenameIs,
+                "fileName" : file.name,
+                "fileId" : i
+            };
+            i += 1;
+
+        });
+        myDropzone.on("removedfile", function(file) {
+            var removeFile = "";
+            var indexToRemove = '';
+            for (var f = 0; f < fileList.length; f++) {
+                if (fileList[f].fileName == file.name) {
+                    removeFile = fileList[f].origianlFileName;
+                }
+            }
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl+'/upload/delete',
+                data: {
+                    id: removeFile,
+                    _token: token
+                },
+                dataType: 'html',
+                success: function(data){
+                    var rep = JSON.parse(data);
+                    if(rep.success == 200)  {
+                        console.log('Deleted');
+                    }
+
+                }
+            });
+        });
+        jQuery(document).ready(function(){
+            jQuery('[data-toggle="modal"]').click(function(e) {
+                e.preventDefault();
+                var imageUrl = jQuery(this).attr('data-image');
+                jQuery.get('{!! url('edit/image?attachment=') !!}'+url, function(data) {
+                    jQuery(data).modal();
+                });
+            });
+        });
+    </script>
+@endsection
