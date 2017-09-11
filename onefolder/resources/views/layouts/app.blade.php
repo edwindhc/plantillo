@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="{!! url('css/'.$settings->themes.'.css') !!}">
     @endif
 <link rel="stylesheet" href="{!! url('css/style.css') !!}">
+<link rel="stylesheet" href="{!! url('css/develop.css') !!}">
     @yield('header')
     {!! $settings->header !!}
 </head>
@@ -35,6 +36,7 @@
     <div id="update"></div>
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
+        
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                     <span class="sr-only">{!! trans('codercv.toggle_navigation') !!}</span>
@@ -43,19 +45,24 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{ url('/') }}" title="{!! strip_tags($settings->title) !!}">
-                    @if(file_exists($settings->name))
-                    <img src="{!! url($settings->name) !!}" alt="{!! strip_tags($settings->title) !!}">
-                    @else
-                    {!! $settings->name !!}
-                    @endif
+                    <img style="width: 30px;" src="{!! url('/files/P.png') !!}" alt="{!! strip_tags($settings->title) !!}">
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/upload') }}">{!! trans('codercv.upload') !!}</a></li>
+                <li>
+                    <div class="icon-addon addon-md" style="margin-top:12px">
+                        <input type="text" placeholder="Buscar" class="form-control" id="Buscar">
+                        <label for="Buscar" class="glyphicon glyphicon-search" rel="tooltip" title="Buscar"></label>
+                </div>
+                </li>
+                
+
+                    
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ url('/upload') }}">{!! trans('codercv.upload') !!}</a></li>
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">{!! trans('codercv.login') !!}</a></li>
                         <li><a href="{{ url('/register') }}">{!! trans('codercv.register') !!}</a></li>
@@ -76,7 +83,7 @@
             </div>
         </div>
     </nav>
-
+    <div class="fixed-opacity"></div>
     @if($settings->is_maintenance == 1 && (!Auth::user() || (Auth::user() && Auth::user()->role_id != 1 )))
         <div class="container-fluid">
             <div class="panel panel-default">
@@ -103,3 +110,24 @@
     {!! $settings->footer !!}
 </body>
 </html>
+
+<script>
+    $(document).ready(function(){
+  $('#Buscar').on('focus', function() {
+   
+        if($('.fixed-opacity').css("display") == "none")
+        {
+           $('.fixed-opacity').show(100);
+          }
+
+  });
+
+ $('#Buscar').on('blur', function() {
+       if($('.fixed-opacity').css("display") == "block")
+       {
+           $('.fixed-opacity').hide(100);
+       
+       }
+ });
+});
+</script>

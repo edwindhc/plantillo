@@ -1,0 +1,144 @@
+.navbar{
+	height: 64px;
+}
+.navbar-default{
+	background-color: #fff;
+    box-shadow: none;
+    border-bottom: 1px solid #efefef;	
+    background-image: none;
+}
+
+.navbar-nav a, .nav a{
+	 color: #574992 !important;
+    font-weight: bold !important;
+    font-family: Helvetica !important;
+    font-size: 16px !important;
+}
+
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 50px;
+    margin-top: 10px;
+}
+.nav>li>a:hover, .nav>li>a:focus {
+	background-color: #eee !important;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+    background-color: #eee;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: #574992;
+}
+.topLink {
+    border-bottom: 3px solid #39C442;
+}
+
+.form-control {
+    color: #574992 !important;
+    background-color: #efefef !important;
+    border: 0px solid #cccccc;
+}
+.form-control:hover, .form-control:focus {
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.input-group .icon-addon .form-control {
+    border-radius: 0;
+}
+
+.icon-addon {
+    position: relative;
+    color: #574992;
+    display: block;
+}
+
+.icon-addon:after,
+.icon-addon:before {
+    display: table;
+    content: " ";
+}
+
+.icon-addon:after {
+    clear: both;
+}
+
+.icon-addon.addon-md .glyphicon,
+.icon-addon .glyphicon, 
+.icon-addon.addon-md .fa,
+.icon-addon .fa {
+    position: absolute;
+    z-index: 2;
+    left: 10px;
+    font-size: 14px;
+    width: 20px;
+    margin-left: -2.5px;
+    text-align: center;
+    padding: 10px 0;
+    top: 1px
+}
+
+.icon-addon.addon-lg .form-control {
+    line-height: 1.33;
+    height: 46px;
+    font-size: 18px;
+    padding: 10px 16px 10px 40px;
+}
+
+.icon-addon.addon-sm .form-control {
+    height: 30px;
+    padding: 5px 10px 5px 28px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.icon-addon.addon-lg .fa,
+.icon-addon.addon-lg .glyphicon {
+    font-size: 18px;
+    margin-left: 0;
+    left: 11px;
+    top: 4px;
+}
+
+.icon-addon.addon-md .form-control,
+.icon-addon .form-control {
+    padding-left: 30px;
+    float: left;
+    font-weight: bold;
+    color: #574992 !important;
+}
+
+.icon-addon.addon-sm .fa,
+.icon-addon.addon-sm .glyphicon {
+    margin-left: 0;
+    font-size: 12px;
+    left: 5px;
+    top: -1px
+}
+
+.icon-addon .form-control:focus + .glyphicon,
+.icon-addon:hover .glyphicon,
+.icon-addon .form-control:focus + .fa,
+.icon-addon:hover .fa {
+    color: #574992;
+}
+
+input#Buscar.form-control{
+	width: 250%;
+}
+
+.fixed-opacity{
+	position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 1;
+    margin-top: -20px;
+    opacity: 0.5;
+    display: none;
+}
