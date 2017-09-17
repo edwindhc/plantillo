@@ -36,7 +36,7 @@
     <div id="update"></div>
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
-        
+
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                     <span class="sr-only">{!! trans('codercv.toggle_navigation') !!}</span>
@@ -57,9 +57,9 @@
                         <label for="Buscar" class="glyphicon glyphicon-search" rel="tooltip" title="Buscar"></label>
                 </div>
                 </li>
-                
 
-                    
+
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ url('/upload') }}">{!! trans('codercv.upload') !!}</a></li>
@@ -114,7 +114,7 @@
 <script>
     $(document).ready(function(){
   $('#Buscar').on('focus', function() {
-   
+
         if($('.fixed-opacity').css("display") == "none")
         {
            $('.fixed-opacity').show(100);
@@ -126,7 +126,7 @@
        if($('.fixed-opacity').css("display") == "block")
        {
            $('.fixed-opacity').hide(100);
-       
+
        }
  });
 });

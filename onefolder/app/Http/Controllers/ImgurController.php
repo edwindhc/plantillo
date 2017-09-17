@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 use Laracasts\Flash\Flash;
 use Mews\Purifier\Facades\Purifier;
 use Vinkla\Hashids\Facades\Hashids;
@@ -312,7 +313,9 @@ class ImgurController extends Controller
 				"file" => "image|mimes:jpg,png,gif,jpeg|max:{$maxSize}"
 			];
 			$validator = Validator::make(['file' => $file], $rules);
+			Log::info($validator->fails());
 			if ($validator->fails()) {
+
 				return Response::make($validator->errors()->first(), 400);
 			}
 		}
@@ -341,11 +344,13 @@ class ImgurController extends Controller
 			$attachment->save();
 			$hashId = Hashids::encode($attachment->id);
 			$filename = $hashId.'.'.strip_tags($extension);
+			Log::info($filename);
 			try {
 				$uploadSuccess = $file->move($destinationPath, $filename);
 				if($uploadSuccess) {
 					if(env('ENABLE_WATERMARK') == 1) {
-						$img = Image::make('files/' . $filename);
+						Log::info('1');
+						$img = \Intervention\Image\Facades\Image::make('files/' . $filename);
 						$img->insert(env('WATERMARK_SOURCE'), env('WATERMARK_POSITION'), env('WATERMARK_X_OFFSET'), env('WATERMARK_Y_OFFSET'));
 						$img->save('files/'.$filename);
 					}
