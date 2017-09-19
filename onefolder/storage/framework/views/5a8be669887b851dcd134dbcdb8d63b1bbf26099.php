@@ -38,7 +38,7 @@
     <div id="update"></div>
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
-        
+
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                     <span class="sr-only"><?php echo trans('codercv.toggle_navigation'); ?></span>
@@ -59,9 +59,9 @@
                         <label for="Buscar" class="glyphicon glyphicon-search" rel="tooltip" title="Buscar"></label>
                 </div>
                 </li>
-                
 
-                    
+
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                 <li><a href="<?php echo e(url('/upload')); ?>"><?php echo trans('codercv.upload'); ?></a></li>
@@ -109,6 +109,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="<?php echo url('js/bootstrap.min.js'); ?>"></script>
     <script src="<?php echo url('js/scripts.js'); ?>"></script>
+    <script src="<?php echo url('js/pinterest.js'); ?>"></script>
     <?php echo $__env->yieldContent('footer'); ?>
     <?php echo $settings->footer; ?>
 
@@ -118,7 +119,7 @@
 <script>
     $(document).ready(function(){
   $('#Buscar').on('focus', function() {
-   
+
         if($('.fixed-opacity').css("display") == "none")
         {
            $('.fixed-opacity').show(100);
@@ -130,7 +131,7 @@
        if($('.fixed-opacity').css("display") == "block")
        {
            $('.fixed-opacity').hide(100);
-       
+
        }
  });
 });

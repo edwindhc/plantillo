@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('header'); ?>
     <title><?php echo strip_tags(trans('codercv.404_not_found')); ?></title>
     <style>

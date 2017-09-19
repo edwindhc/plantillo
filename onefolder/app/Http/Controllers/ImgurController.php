@@ -77,7 +77,8 @@ class ImgurController extends Controller
 					$img = \Intervention\Image\Facades\Image::make($attach[$post->id])->resize(180, 180);
 					$img->save('files/thumbnail/' . $filename . '_200x200_thumbnail.' . $extension, 60);
 				}
-				$toIndexPost[$post->id] = array($post->id, $post->title, $post->description, 'files/thumbnail/' . $filename . '_200x200_thumbnail.' . $extension);
+				// $toIndexPost[$post->id] = array($post->id, $post->title, $post->description, 'files/thumbnail/' . $filename . '_200x200_thumbnail.' . $extension);
+				$toIndexPost[$post->id] = array($post->id, $post->title, $post->description, 'files/' . $filename . '.' . $extension);
 			}
 
 			foreach($voteId as $v) {
@@ -120,7 +121,8 @@ class ImgurController extends Controller
 					$img = \Intervention\Image\Facades\Image::make($attach[$post->id])->resize(180, 180);
 					$img->save('files/thumbnail/' . $filename . '_200x200_thumbnail.' . $extension, 60);
 				}
-				$toIndexPost[$post->id] = array($post->id, $post->title, $post->description, 'files/thumbnail/' . $filename . '_200x200_thumbnail.' . $extension);
+				// $toIndexPost[$post->id] = array($post->id, $post->title, $post->description, 'files/thumbnail/' . $filename . '_200x200_thumbnail.' . $extension);
+				$toIndexPost[$post->id] = array($post->id, $post->title, $post->description, 'files/' . $filename . '.' . $extension);
 			}
 
 			foreach($voteId as $v) {
@@ -158,12 +160,13 @@ class ImgurController extends Controller
 			foreach($posts as $post) {
 				$imgParts = pathinfo($attach[$post->id]);
 				$filename = $imgParts['filename'];
-				$extension = $imgParts['extension'];
+				$extension = $imgParts['exthay es donde esta el detalle, mañana en la oficina puedo sacar un ratoension'];
 				if (!file_exists('files/thumbnail/' . $filename . '_200x200_thumbnail.' . $extension)) {
 					$img = \Intervention\Image\Facades\Image::make($attach[$post->id])->resize(180, 180);
 					$img->save('files/thumbnail/' . $filename . '_200x200_thumbnail.' . $extension, 60);
 				}
-				$toIndexPost[$post->id] = array($post->id, $post->title, $post->description, 'files/thumbnail/' . $filename . '_200x200_thumbnail.' . $extension);
+				// $toIndexPost[$post->id] = array($post->id, $post->title, $post->description, 'files/thumbnail/' . $filename . '_200x200_thumbnail.' . $extension);
+				$toIndexPost[$post->id] = array($post->id, $post->title, $post->description, 'files/' . $filename . '.' . $extension);
 			}
 
 			foreach($voteId as $v) {
@@ -206,7 +209,7 @@ class ImgurController extends Controller
 					$img = \Intervention\Image\Facades\Image::make($attach[$post->id])->resize(180, 180);
 					$img->save('files/thumbnail/' . $filename . '_200x200_thumbnail.' . $extension, 60);
 				}
-				$toIndexPost[$post->id] = array($post->id, $post->title, $post->description, 'files/thumbnail/' . $filename . '_200x200_thumbnail.' . $extension);
+				$toIndexPost[$post->id] = array($post->id, $post->title, $post->description, 'files/' . $filename . '.' . $extension);
 			}
 
 			foreach($voteId as $v) {
@@ -245,7 +248,8 @@ class ImgurController extends Controller
 					$img = \Intervention\Image\Facades\Image::make($attach[$post->id])->resize(180, 180);
 					$img->save('files/thumbnail/' . $filename . '_200x200_thumbnail.' . $extension, 60);
 				}
-				$content .= '<div class="col-xs-6 col-sm-4 col-md-2 post-content" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="'.e(str_limit(strip_tags($post->description))).'" data-original-title="'.e(strip_tags($post->title)).'"><a href="'.url(env('URL_NAME', 'post').'/'.$post->id.'/'.str_slug($post->title)).'"><img src="'.url('files/thumbnail/'.$filename.'_200x200_thumbnail.'.$extension).'" alt="'.e(strip_tags($post->title)).'" class="img-responsive"></a></div>';
+				// $content .= '<div class="col-xs-6 col-sm-4 col-md-2 post-content" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="'.e(str_limit(strip_tags($post->description))).'" data-original-title="'.e(strip_tags($post->title)).'"><a href="'.url(env('URL_NAME', 'post').'/'.$post->id.'/'.str_slug($post->title)).'"><img src="'.url('files/thumbnail/'.$filename.'_200x200_thumbnail.'.$extension).'" alt="'.e(strip_tags($post->title)).'" class="img-responsive"></a></div>';
+				$content .= '<div class="col-xs-6 col-sm-4 col-md-2 post-content" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="'.e(str_limit(strip_tags($post->description))).'" data-original-title="'.e(strip_tags($post->title)).'"><a href="'.url(env('URL_NAME', 'post').'/'.$post->id.'/'.str_slug($post->title)).'"><img src="'.url('files/'.$filename.'.'.$extension).'" alt="'.e(strip_tags($post->title)).'" class="img-responsive"></a></div>';
 			}
 			$nextPage = !is_null($posts->nextPageUrl()) ? $posts->nextPageUrl() : 'end';
 
@@ -278,7 +282,10 @@ class ImgurController extends Controller
 					$img = \Intervention\Image\Facades\Image::make($attach[$post->id])->resize(180, 180);
 					$img->save('files/thumbnail/' . $filename . '_200x200_thumbnail.' . $extension, 60);
 				}
-				$content .= '<div style="margin:10px 0px;" class="col-xs-6 col-sm-4 col-md-4 post-content" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="'.e(str_limit(strip_tags($post->description))).'" data-original-title="'.e(strip_tags($post->title)).'"><a href="'.url(env('URL_NAME', 'post').'/'.$post->id.'/'.str_slug($post->title)).'"><img src="'.url('files/thumbnail/'.$filename.'_200x200_thumbnail.'.$extension).'" alt="'.e(strip_tags($post->title)).'" style="border-radius:8px" class="img-responsive"></a></div>';
+				// $content .= '<div style="margin:10px 0px;" class="col-xs-6 col-sm-4 col-md-4 post-content" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="'.e(str_limit(strip_tags($post->description))).'" data-original-title="'.e(strip_tags($post->title)).'"><a href="'.url(env('URL_NAME', 'post').'/'.$post->id.'/'.str_slug($post->title)).'"><img src="'.url('files/thumbnail/'.$filename.'_200x200_thumbnail.'.$extension).'" alt="'.e(strip_tags($post->title)).'" style="border-radius:8px" class="img-responsive"></a></div>';
+
+				// $content .= '<article class="white-panel"><div style="margin:10px 0px;" class="col-xs-6 col-sm-4 col-md-4 post-content" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="'.e(str_limit(strip_tags($post->description))).'" data-original-title="'.e(strip_tags($post->title)).'"><a href="'.url(env('URL_NAME', 'post').'/'.$post->id.'/'.str_slug($post->title)).'"><img src="'.url('files/'.$filename.'.'.$extension).'" alt="'.e(strip_tags($post->title)).'" style="border-radius:8px" class="img-responsive"></a></div></article>';
+				$content .= '<article class="white-panel"><a href="'.url(env('URL_NAME', 'post').'/'.$post->id.'/'.str_slug($post->title)).'"><img class="pinBootImg" src="'.url('files/'.$filename.'.'.$extension).'" alt=""></a></article>';
 			}
 			$nextPage = !is_null($posts->nextPageUrl()) ? $posts->nextPageUrl() : 'end';
 		}

@@ -66,7 +66,7 @@
             </h4>
             <p class="text-center muted">{!! trans('codercv.today').' '.trans('codercv.most').' '.trans('codercv.popular').' '.ucfirst(env('URL_NAME', 'post')) !!}</p>
             <div class="">
-                <div class="contentInfinite" data-href="{!! url('fetch/'.env('URL_NAME', 'post')) !!}"></div>
+                <div id="pinBoot" class="contentInfinite" data-href="{!! url('fetch/'.env('URL_NAME', 'post')) !!}"></div>
             </div>
         </div>
     </div>

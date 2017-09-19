@@ -106,6 +106,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="{!! url('js/bootstrap.min.js') !!}"></script>
     <script src="{!! url('js/scripts.js') !!}"></script>
+    <script src="{!! url('js/pinterest.js') !!}"></script>
     @yield('footer')
     {!! $settings->footer !!}
 </body>

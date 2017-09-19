@@ -4,7 +4,7 @@
 .navbar-default{
 	background-color: #fff;
     box-shadow: none;
-    border-bottom: 1px solid #efefef;	
+    border-bottom: 1px solid #efefef;
     background-image: none;
 }
 
@@ -69,7 +69,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .icon-addon.addon-md .glyphicon,
-.icon-addon .glyphicon, 
+.icon-addon .glyphicon,
 .icon-addon.addon-md .fa,
 .icon-addon .fa {
     position: absolute;
@@ -142,3 +142,31 @@ input#Buscar.form-control{
     opacity: 0.5;
     display: none;
 }
+
+
+/*pintrest styles*/
+#pinBoot {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+}
+img.pinBootImg {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+.white-panel {
+  position: absolute;
+  background: white;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+}
+.white-panel:hover {
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  margin-top: -5px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+/*pintrest styles end*/
